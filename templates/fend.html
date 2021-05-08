@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <meta charset="UTF-8">
+    <title>FrontEnd</title>
+    <style>
+    .button {
+  padding: 8px 20px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 9px #999;
+}
+
+.button:hover {background-color: #3e8e41}
+
+.button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+    .row {
+  display: flex;
+}
+
+.column {
+  flex: 33.33%;
+  padding: 8px;
+}
+img {
+  width: auto;
+   border: 5px solid #555;
+  height: 45%;
+  border-radius: 30%;
+  vertical-align: middle;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+</style>
+
+</head>
+<body>
+<form method="post">
+<div class="row">
+  <div class="column">
+    <img src="static/deadpool.jpg"  style="width:100%"><br><br>
+      <center><input type="checkbox" name="Vote" value="deadpool" id="vfd" onclick="ckChange(this)"></center>
+    <center><label for="vfd">Deadpool</label></center>
+  </div>
+  <div class="column">
+    <img src="static/im.jpg" style="width:100%"><br><br>
+      <center><input type="checkbox" name="Vote" value="ironman" id="vfim" onclick="ckChange(this)"></center>
+    <center><label for="vfim">Iron Man</label></center><br>
+    <center><input type="text" id="votername" name="votername" value="" class="form-control item" placeholder="Enter Your Full Name"></center><br>
+    <center><button type="button" name="submit" id="submit" class="button" onclick="submitfunction()">Vote</button>&nbsp;</center><br>
+<!--      <button id="rpage" name="rpage" class="button" onclick="ref()">Get Latest Stats</button>-->
+    <center><table border="1">
+  <tr>
+    <th><center>Deadpool</center></th>
+    <th><center>Iron Man</center></th>
+    <th><center>John Wick</center></th>
+  </tr>
+  <tr>
+
+    <td><center>{{im}}</center></td>
+    <td><center>{{dp}}</center></td>
+    <td><center>{{jw}}</center></td>
+
+  </tr>
+
+    </table></center>
+  </div>
+  <div class="column">
+    <img src="static/johnwick.jpg" style="width:100%"><br><br>
+      <center><input type="checkbox" name="Vote" value="johnwick" id="vjw" onclick="ckChange(this)"></center>
+    <center><label for="vjw">John Wick</label></center>
+  </div>
+</div>
+
+</form>
+
+</body>
+</html>
+<script>
+
+  function ckChange(ckType){
+    var ckName = document.getElementsByName(ckType.name);
+    var checked = document.getElementById(ckType.id);
+
+    if (checked.checked) {
+      for(var i=0; i < ckName.length; i++){
+
+          if(!ckName[i].checked){
+              ckName[i].disabled = true;
+          }else{
+              ckName[i].disabled = false;
+          }
+      }
+    }
+    else {
+      for(var i=0; i < ckName.length; i++){
+        ckName[i].disabled = false;
+      }
+    }
+
+}
+
+function ref()
+{
+location.reload();
+}
+
+
+function submitfunction() {
+
+
+	if ($('input:checkbox').filter(':checked').length < 1) {
+		sweetAlert("Oops...", "you haven't voted for any of them, please vote...!", "error");
+		return false;
+	}
+
+	if($("#votername").val().length <= 0){
+	  sweetAlert("Oops...", "Please Enter Your Name!", "error");
+	   $("#votername").focusin();
+		return false;
+	}
+
+	var insert = [];
+	var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+
+	for (var i = 0; i < checkboxes.length; i++) {
+		insert.push(checkboxes[i].value);
+	}
+	console.log(insert, 1111111111);
+	insert = insert.toString();
+	var vname = $("#votername").val();
+    {% for i in voters %}
+	if (vname == '{{i}}')
+	{
+		swal({
+			title: "oops!",
+			text: "you have voted already!",
+			icon: "error",
+		}).then(function() {
+			location.reload();
+		});
+		return 0;
+	}{% endfor %}
+
+    else
+    {
+		$.ajax({
+			url: "/submitdata",
+			data: {
+				insert: insert,
+				votername: $("#votername").val(),
+			},
+			type: "POST",
+
+		});
+		swal({
+			title: "Good job!",
+			text: "You Have Voted Successfully!",
+			icon: "success",
+		}).then(function() {
+			location.reload();
+		});
+	}
+}
+</script>
